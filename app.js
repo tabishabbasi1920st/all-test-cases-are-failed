@@ -4,8 +4,6 @@ const sqlite3 = require("sqlite3");
 const { open } = require("sqlite");
 const path = require("path");
 const date_fns = require("date-fns");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 
 // Defining port number..
 const port = 3000;
