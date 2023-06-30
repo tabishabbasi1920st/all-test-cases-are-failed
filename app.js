@@ -357,11 +357,12 @@ app.get("/agenda/", async (request, response) => {
 // 4 API
 app.post("/todos/", async (request, response) => {
   const { id, todo, priority, status, category, dueDate } = request.body;
+  const formattedDate = date_fns.format(new Date(dueDate), "yyy-MM-ddd");
   const createTodoQuery = `
     INSERT INTO
         todo(id,todo,priority,status,category,due_date)
     VALUES
-        (${id},"${todo}","${priority}","${status}","${category}","${dueDate}");
+        (${id},"${todo}","${priority}","${status}","${category}","${formattedDate}");
   `;
 
   const dbResponse = await db.run(createTodoQuery);
