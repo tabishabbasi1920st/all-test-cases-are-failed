@@ -339,7 +339,7 @@ app.get("/todos/:todoId/", async (request, response) => {
 
   const specificTodoDetails = await db.get(getSpecificTodo);
   response.status(200);
-  response.send(specificTodoDetails);
+  response.send(changeCase(inCamel));
 });
 
 // 3 API
@@ -364,8 +364,12 @@ app.get("/agenda/", async (request, response) => {
       `;
 
     const getDueDateTodo = await db.all(getDueDateTodoQuery);
+    const inCamel = [];
+    for (let each of getDueDateTodo) {
+      inCamel.push(changeCase(each));
+    }
     response.status(200);
-    response.send(getDueDateTodo);
+    response.send(inCamel);
   }
 });
 
