@@ -94,6 +94,17 @@ const hasTodo = (requestQuery) => {
   }
 };
 
+const changeCase = (eachObject) => {
+  return {
+    id: eachObject.id,
+    todo: eachObject.todo,
+    priority: eachObject.priority,
+    status: eachObject.status,
+    category: eachObject.category,
+    dueDate: eachObject.due_date,
+  };
+};
+
 // Checking Invalid Scenarios and 1 API.
 app.get("/todos/", async (request, response) => {
   const { status, priority, search_q, category } = request.query;
@@ -306,8 +317,12 @@ app.get("/todos/", async (request, response) => {
   }
 
   const dbResponse = await db.all(relatedQuery);
+  const inCamel = [];
+  for (let each of dbResponse) {
+    inCamel.push(changeCase(each));
+  }
   response.status(200);
-  response.send(dbResponse);
+  response.send(inCamel);
 });
 
 // 2 API
